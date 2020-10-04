@@ -9,7 +9,6 @@ def display_inventory(inventory):
     for key, value in inventory.items():
         print(f"{key}: {value}")
 
-    pass
 
 
 def add_to_inventory(inventory, added_items):
@@ -35,12 +34,24 @@ def remove_from_inventory(inventory, removed_items):
 
 
 def print_table(inventory, order):
-    """
-    Display the contents of the inventory in an ordered, well-organized table with
-    each column right-aligned.
-    """
-
-    pass
+    # Takes your inventory and displays it in a well-organized table with
+    # each column right-justified. The input argument is an order parameter (string)
+    # which works as the following:
+    # - None (by default) means the table is unordered
+    # - "count,desc" means the table is ordered by count (of items in the inventory)
+    #   in descending order
+    # - "count,asc" means the table is ordered by count in ascending order  
+    if order == "count,asc":
+        inventory = dict(sorted(inventory.items(), key=lambda x:x[1]))
+    elif order == "count,desc":
+        inventory = dict(sorted(inventory.items(), key=lambda x:x[1], reverse=True))
+    
+    print("-----------------")
+    print("item name | count")
+    print("-----------------")
+    for key, value in inventory.items():
+        print(key.rjust(9), str(value).rjust(6), sep=" |")
+    print("-----------------")
 
 
 def import_inventory(inventory, filename):
