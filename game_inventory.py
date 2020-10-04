@@ -33,7 +33,7 @@ def remove_from_inventory(inventory, removed_items):
     pass
 
 
-def print_table(inventory, order):
+def print_table(inventory, order=None):
     # Takes your inventory and displays it in a well-organized table with
     # each column right-justified. The input argument is an order parameter (string)
     # which works as the following:
@@ -56,18 +56,24 @@ def print_table(inventory, order):
 
 def import_inventory(inventory, filename):
     """Import new inventory items from a CSV file."""
-    with open(filename) as file:
-        data = file.read()
-        list_of_data = data.split(",")
-        add_to_inventory(inventory, list_of_data)
+    try:
+        with open(filename) as file:
+            data = file.read()
+            list_of_data = data.split(",")
+            add_to_inventory(inventory, list_of_data)
+    except FileNotFoundError:
+        print (f"File '{filename}' not found!")
     pass
 
 
 def export_inventory(inventory, filename):
     """Export the inventory into a CSV file."""
-    with open(filename, "w") as file:
-        output = ""
-        for item in inventory:
-            output += (item +",") * inventory[item]
-        file.write(output[:-1])
+    try:
+        with open(filename, "w") as file:
+            output = ""
+            for item in inventory:
+                output += (item +",") * inventory[item]
+            file.write(output[:-1])
+    except PermissionError:
+        print (f"You don't have permission creating file '{filename}'!")
     pass
