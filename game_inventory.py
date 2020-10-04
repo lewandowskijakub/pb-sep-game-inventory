@@ -56,7 +56,10 @@ def print_table(inventory, order):
 
 def import_inventory(inventory, filename):
     """Import new inventory items from a CSV file."""
-
+    with open(filename) as file:
+        data = file.read()
+        list_of_data = data.split(",")
+        add_to_inventory(inventory, list_of_data)
     pass
 
 
