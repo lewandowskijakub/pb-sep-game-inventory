@@ -65,5 +65,9 @@ def import_inventory(inventory, filename):
 
 def export_inventory(inventory, filename):
     """Export the inventory into a CSV file."""
-
+    with open(filename, "w") as file:
+        output = ""
+        for item in inventory:
+            output += (item +",") * inventory[item]
+        file.write(output[:-1])
     pass
